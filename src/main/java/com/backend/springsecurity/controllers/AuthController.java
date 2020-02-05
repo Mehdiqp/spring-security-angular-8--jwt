@@ -72,31 +72,22 @@ public class AuthController {
 
     @PostMapping("/signup") //create user controller
     public ResponseEntity<?> regiseterUser(@Valid @RequestBody SignupRequest signupRequest) {
-        System.out.println("11111111111111111111111111");
         //check username to be uniq
         if (userRepository.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageRespones("ERROR:user is already exist"));
         }
 
-        System.out.println("2222222222222222222222222222222222222222");
         //check email be uniq
         if (userRepository.existsByEmail(signupRequest.getEmail())) {
             return ResponseEntity.badRequest().body(new MessageRespones("ERROR : Email is already exist"));
         }
 
-        System.out.println("33333333333333333333333333333333333333333333");
         //create user object
         User user = new User(
                 signupRequest.getUsername(), signupRequest.getEmail(), passwordEncoder.encode(signupRequest.getPassword()));
 
-        System.out.println("44444444444444444444444444444444444444444444444444");
         Set<String> strRoles = signupRequest.getRole();
         Set<Role> userRoles = new HashSet<>();
-
-//            Role defualtRole = new Role();
-//            defualtRole.setId(1L);
-//            defualtRole.setName(ERole.ROLE_USER);
-//            userRoles.add(defualtRole);
 
         //check user role and fetch from db
         if (strRoles == null) {
@@ -126,13 +117,8 @@ public class AuthController {
             });
         }
             user.setRoles(userRoles);
-
-            System.out.println("--------------------------------------------");
-            System.out.println(user.toString());
-            System.out.println("--------------------------------------------");
-            //if every thing is right than response successfully message to user
-                userRepository.save(user);
-                return ResponseEntity.ok("successfully!!!");
+            userRepository.save(user);
+            return ResponseEntity.ok("successfully!!!");
     }
 
 }
