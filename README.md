@@ -1,6 +1,7 @@
 sample Authenticatioin and authorization project with spring security ,angular and JWT
 
 -------------for insert roles in database-------------------------
+
 INSERT INTO roles(name) VALUES('ROLE_USER');
 INSERT INTO roles(name) VALUES('ROLE_MODERATOR');
 INSERT INTO roles(name) VALUES('ROLE_ADMIN');
